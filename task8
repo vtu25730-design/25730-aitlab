@@ -1,0 +1,58 @@
+# Python3 program to solve N Queen
+# Problem using backtracking
+global N
+N = 4
+defprintSolution(board):
+	for i in range(N):
+		for j in range(N):
+			if board[i][j] == 1:
+				print("Q",end=" ")
+			else:
+				print(".",end=" ")
+		print()
+defisSafe(board, row, col):
+
+	# Check this row on left side
+	for i in range(col):
+		if board[row][i] == 1:
+			return False
+
+	# Check upper diagonal on left side
+	fori, j in zip(range(row, -1, -1),
+					range(col, -1, -1)):
+		if board[i][j] == 1:
+			return False
+	# Check lower diagonal on left side
+	fori, j in zip(range(row, N, 1),
+					range(col, -1, -1)):
+		if board[i][j] == 1:
+			return False
+	return True
+defsolveNQUtil(board, col):
+	# Base case: If all queens are placed
+	# then return true
+	if col >= N:
+		return True
+	# Consider this column and try placing
+	# this queen in all rows one by one
+	for i in range(N):
+		ifisSafe(board, i, col):
+			# Place this queen in board[i][col]
+			board[i][col] = 1	
+			ifsolveNQUtil(board, col + 1) == True:
+				return True
+			board[i][col] = 0
+	return False
+defsolveNQ():
+	board = [[0, 0, 0, 0],
+			[0, 0, 0, 0],
+			[0, 0, 0, 0],
+			[0, 0, 0, 0]]
+	ifsolveNQUtil(board, 0) == False:
+		print("Solution does not exist")
+		return False
+	printSolution(board)
+	return True
+# Driver Code
+if __name__ == '__main__':
+	solveNQ()
